@@ -42,7 +42,7 @@ namespace CarPark.Tests.Domain
         [InlineData(4, 0.40)]  // 4 * 0.10 + 0
         [InlineData(5, 1.50)]  // 5 * 0.10 + 1 extra
         [InlineData(6, 1.60)]  // 6 * 0.10 + 1
-        [InlineData(10, 2.00)] // 10 * 0.10 + 2
+        [InlineData(10, 3.00)] // 10 * 0.10 + 2
         public void SmallCar_WithExtraPer5Min(int minutes, decimal expected)
         {
             var start = new DateTime(2025, 1, 1, 12, 0, 0, DateTimeKind.Utc);

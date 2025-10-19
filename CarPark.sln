@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6D458AF7-2509-49A3-AF9A-461BCA114DB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPark.Api", "CarPark.Api\CarPark.Api.csproj", "{B8540554-FAA0-0C83-D8DA-3142E21AF1E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPark.Application", "CarPark.Application\CarPark.Application.csproj", "{E2887EF8-0A93-4ECA-0F6F-7A8C36B85E6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPark.Contracts", "CarPark.Contracts\CarPark.Contracts.csproj", "{EB8B73F1-0553-2D35-B0B5-EBD66F896166}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPark.Domain", "CarPark.Domain\CarPark.Domain.csproj", "{2BC57624-92AC-8914-CC8B-3138994A09B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPark.Infrastructure", "CarPark.Infrastructure\CarPark.Infrastructure.csproj", "{9CAB22C2-42D7-57AA-6DED-F4DF66995128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPark.Tests", "CarPark.Tests\CarPark.Tests.csproj", "{E96FF19C-F110-7730-8A8A-6FEEFBAD0B59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8540554-FAA0-0C83-D8DA-3142E21AF1E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8540554-FAA0-0C83-D8DA-3142E21AF1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8540554-FAA0-0C83-D8DA-3142E21AF1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8540554-FAA0-0C83-D8DA-3142E21AF1E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2887EF8-0A93-4ECA-0F6F-7A8C36B85E6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2887EF8-0A93-4ECA-0F6F-7A8C36B85E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2887EF8-0A93-4ECA-0F6F-7A8C36B85E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2887EF8-0A93-4ECA-0F6F-7A8C36B85E6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB8B73F1-0553-2D35-B0B5-EBD66F896166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB8B73F1-0553-2D35-B0B5-EBD66F896166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB8B73F1-0553-2D35-B0B5-EBD66F896166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB8B73F1-0553-2D35-B0B5-EBD66F896166}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BC57624-92AC-8914-CC8B-3138994A09B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BC57624-92AC-8914-CC8B-3138994A09B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BC57624-92AC-8914-CC8B-3138994A09B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BC57624-92AC-8914-CC8B-3138994A09B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CAB22C2-42D7-57AA-6DED-F4DF66995128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CAB22C2-42D7-57AA-6DED-F4DF66995128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CAB22C2-42D7-57AA-6DED-F4DF66995128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CAB22C2-42D7-57AA-6DED-F4DF66995128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E96FF19C-F110-7730-8A8A-6FEEFBAD0B59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E96FF19C-F110-7730-8A8A-6FEEFBAD0B59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E96FF19C-F110-7730-8A8A-6FEEFBAD0B59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E96FF19C-F110-7730-8A8A-6FEEFBAD0B59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8540554-FAA0-0C83-D8DA-3142E21AF1E1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{E2887EF8-0A93-4ECA-0F6F-7A8C36B85E6F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{EB8B73F1-0553-2D35-B0B5-EBD66F896166} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{2BC57624-92AC-8914-CC8B-3138994A09B9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9CAB22C2-42D7-57AA-6DED-F4DF66995128} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{E96FF19C-F110-7730-8A8A-6FEEFBAD0B59} = {6D458AF7-2509-49A3-AF9A-461BCA114DB3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EACEAAC1-0435-46E5-A40C-D3CC327FDF95}
+	EndGlobalSection
+EndGlobal
