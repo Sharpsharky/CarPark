@@ -22,22 +22,23 @@ namespace CarPark.Application.Parking.Commands.AllocateVehicle
             _clock = clock;
         }
 
-        public async Task<AllocateVehicleResult> Handle(AllocateVehicleCommand request, CancellationToken ct)
+        public async Task<AllocateVehicleResult> Handle(AllocateVehicleCommand cmd, CancellationToken ct)
         {
-            var space = await _spaces.GetFirstAvailableAsync(ct);
-            if (space is null)
-                throw new ConflictException("No available spaces.");
+            var normalizedReg = cmd.VehicleReg.Trim().ToUpperInvariant();
 
-            var timeIn = _clock.UtcNow;
+            var existingTicket = await _tickets.GetActiveByVehicleRegAsync(normalizedReg, ct);
+            if (existingTicket is not null)
+                throw new ConflictException($"Vehicle '{normalizedReg}' is already parked in space {existingTicket.SpaceNumber}.");
 
-            space.Occupy(request.VehicleReg, request.VehicleType, timeIn);
-
-            var ticket = new ParkingTicket(request.VehicleReg, request.VehicleType, space.Number, timeIn);
-
+            var space = await _spaces.GetFirstAvailableAsync(ct) ?? throw new ConflictException("No available spaces.");
+            var now = _clock.UtcNow;
+            space.Occupy(normalizedReg, cmd.VehicleType, now);
             await _spaces.UpdateAsync(space, ct);
+
+            var ticket = new ParkingTicket(normalizedReg, cmd.VehicleType, space.Number, now);
             await _tickets.AddAsync(ticket, ct);
 
-            return new AllocateVehicleResult(ticket.VehicleReg, ticket.SpaceNumber, ticket.TimeInUtc);
+            return new AllocateVehicleResult(normalizedReg, space.Number, now);
         }
     }
 }

@@ -25,26 +25,28 @@ namespace CarPark.Application.Parking.Commands.ExitVehicle
             _clock = clock;
         }
 
-        public async Task<ExitVehicleResult> Handle(ExitVehicleCommand request, CancellationToken ct)
+        public async Task<ExitVehicleResult> Handle(ExitVehicleCommand cmd, CancellationToken ct)
         {
-            var ticket = await _tickets.GetActiveByVehicleRegAsync(request.VehicleReg.Trim().ToUpperInvariant(), ct);
+            var normalizedReg = cmd.VehicleReg.Trim().ToUpperInvariant();
+            var ticket = await _tickets.GetActiveByVehicleRegAsync(normalizedReg, ct);
+
             if (ticket is null)
-                throw new NotFoundException($"Active ticket for vehicle '{request.VehicleReg}' not found.");
+                throw new NotFoundException($"No active ticket for vehicle '{normalizedReg}'.");
+
+            var now = _clock.UtcNow;
+            var charge = _pricing.CalculateCharge(ticket.VehicleType, ticket.TimeInUtc, now);
+
+            ticket.Close(now, charge);
+            await _tickets.UpdateAsync(ticket, ct);
 
             var space = await _spaces.GetByNumberAsync(ticket.SpaceNumber, ct);
-            if (space is null)
-                throw new NotFoundException($"Space #{ticket.SpaceNumber} not found.");
+            if (space is not null)
+            {
+                space.Release();
+                await _spaces.UpdateAsync(space, ct);
+            }
 
-            var timeOut = _clock.UtcNow;
-            var charge = _pricing.CalculateCharge(ticket.VehicleType, ticket.TimeInUtc, timeOut);
-
-            ticket.Close(timeOut, charge);
-            space.Release();
-
-            await _tickets.UpdateAsync(ticket, ct);
-            await _spaces.UpdateAsync(space, ct);
-
-            return new ExitVehicleResult(ticket.VehicleReg, ticket.Charge!.Value, ticket.TimeInUtc, ticket.TimeOutUtc!.Value);
+            return new ExitVehicleResult(normalizedReg, charge, ticket.TimeInUtc, now);
         }
     }
 }

@@ -1,0 +1,36 @@
+services:
+  carpark.api:
+    image: ${DOCKER_REGISTRY-}carparkapi
+    build:
+      context: .
+      dockerfile: CarPark.Api/Dockerfile
+    ports:
+      - "60790:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__Default=Host=carpark.db;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+    depends_on:
+      carpark.db:
+        condition: service_healthy
+
+  carpark.db:
+    image: postgres:16
+    container_name: carpark-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: carparkdb
+    ports:
+      - "55432:5432"
+    volumes:
+      - carpark_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d carparkdb"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  carpark_pgdata:
+    name: carpark_pgdata

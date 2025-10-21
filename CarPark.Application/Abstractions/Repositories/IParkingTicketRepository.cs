@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarPark.Domain.Entities;
+
 
 namespace CarPark.Application.Abstractions.Repositories
 {
-    internal class IParkingTicketRepository
+    public interface IParkingTicketRepository
     {
+        Task AddAsync(ParkingTicket ticket, CancellationToken ct);
+        Task<ParkingTicket?> GetActiveByVehicleRegAsync(string vehicleReg, CancellationToken ct);
+        Task UpdateAsync(ParkingTicket ticket, CancellationToken ct);
     }
 }
