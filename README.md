@@ -35,10 +35,6 @@ All environment variables are defined in a local '.env' file.
 For security reasons, this file is **not committed** to the repository.
 
 An example configuration file **'.env.example'** is included in the project root.  
-To create your local version, simply copy it:
-
-```bash
-cp .env.example .env
 
 ## Tech Stack
 
