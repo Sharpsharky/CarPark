@@ -14,16 +14,21 @@ namespace CarPark.Domain.Entities
         public DateTime? TimeOutUtc { get; private set; }
         public decimal? Charge { get; private set; }
 
-        public ParkingTicket(string vehicleReg, VehicleType vehicleType, int spaceNumber, DateTime timeInUtc)
+        public const decimal LowAvailabilitySurchargeAmount = 5m;
+
+        public bool LowAvailabilitySurchargeApplied { get; private set; }
+
+        public ParkingTicket(string vehicleReg, VehicleType vehicleType, int spaceNumber, DateTime timeInUtc, bool lowAvailabilitySurchargeApplied = false)
         {
             if (string.IsNullOrWhiteSpace(vehicleReg)) throw new DomainException("VehicleReg is required.");
             if (spaceNumber <= 0) throw new DomainException("SpaceNumber must be positive.");
             if (timeInUtc.Kind != DateTimeKind.Utc) throw new DomainException("TimeIn must be UTC.");
-
+            
             VehicleReg = vehicleReg.Trim().ToUpperInvariant();
             VehicleType = vehicleType;
             SpaceNumber = spaceNumber;
             TimeInUtc = timeInUtc;
+            LowAvailabilitySurchargeApplied = lowAvailabilitySurchargeApplied;
         }
 
         public void Close(DateTime timeOutUtc, decimal charge)

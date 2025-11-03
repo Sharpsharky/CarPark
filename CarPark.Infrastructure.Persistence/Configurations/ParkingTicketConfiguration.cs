@@ -29,6 +29,9 @@ namespace CarPark.Infrastructure.Persistence.Configurations
             b.Property(x => x.Charge)
                 .HasPrecision(18, 2);
 
+            b.Property(x => x.LowAvailabilitySurchargeApplied)
+                .IsRequired();
+
             b.HasIndex(x => new { x.VehicleReg, x.TimeOutUtc })
                 .HasDatabaseName("ix_ticket_vehicle_active");
         }

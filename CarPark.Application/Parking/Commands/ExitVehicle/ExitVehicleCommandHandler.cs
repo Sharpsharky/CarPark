@@ -1,6 +1,7 @@
 ﻿using CarPark.Application.Abstractions.Repositories;
 using CarPark.Application.Abstractions.Time;
 using CarPark.Application.Common.Exceptions;
+using CarPark.Domain.Entities;
 using CarPark.Domain.Policies;
 using MediatR;
 
@@ -35,6 +36,10 @@ namespace CarPark.Application.Parking.Commands.ExitVehicle
 
             var now = _clock.UtcNow;
             var charge = _pricing.CalculateCharge(ticket.VehicleType, ticket.TimeInUtc, now);
+            if (ticket.LowAvailabilitySurchargeApplied)
+            {
+                charge += ParkingTicket.LowAvailabilitySurchargeAmount;
+            }
 
             ticket.Close(now, charge);
             await _tickets.UpdateAsync(ticket, ct);

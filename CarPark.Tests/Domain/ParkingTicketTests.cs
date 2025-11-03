@@ -20,6 +20,16 @@ namespace CarPark.Tests.Domain
             ticket.TimeInUtc.Should().Be(t);
             ticket.TimeOutUtc.Should().BeNull();
             ticket.Charge.Should().BeNull();
+            ticket.LowAvailabilitySurchargeApplied.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Create_WithSurcharge_ShouldSetFlag()
+        {
+            var t = new DateTime(2025, 1, 1, 12, 0, 0, DateTimeKind.Utc);
+            var ticket = new ParkingTicket("DW12345", VehicleType.Small, 7, t, lowAvailabilitySurchargeApplied: true);
+
+            ticket.LowAvailabilitySurchargeApplied.Should().BeTrue();
         }
 
         [Fact]

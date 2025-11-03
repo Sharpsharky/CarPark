@@ -30,12 +30,17 @@ namespace CarPark.Application.Parking.Commands.AllocateVehicle
             if (existingTicket is not null)
                 throw new ConflictException($"Vehicle '{normalizedReg}' is already parked in space {existingTicket.SpaceNumber}.");
 
+            var availableSpaces = await _spaces.CountAvailableAsync(ct);
+            if (availableSpaces <= 0)
+                throw new ConflictException("No available spaces.");
+
             var space = await _spaces.GetFirstAvailableAsync(ct) ?? throw new ConflictException("No available spaces.");
             var now = _clock.UtcNow;
             space.Occupy(normalizedReg, cmd.VehicleType, now);
             await _spaces.UpdateAsync(space, ct);
 
-            var ticket = new ParkingTicket(normalizedReg, cmd.VehicleType, space.Number, now);
+            var applySurcharge = availableSpaces < 5;
+            var ticket = new ParkingTicket(normalizedReg, cmd.VehicleType, space.Number, now, applySurcharge);
             await _tickets.AddAsync(ticket, ct);
 
             return new AllocateVehicleResult(normalizedReg, space.Number, now);
